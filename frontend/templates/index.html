@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amazon Sales AI Analyst</title>
+  <link rel="stylesheet" href="/static/src/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>" />
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Minimal Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        
+        <h1>Amazon Sales AI</h1>
+        <span class="header-tag">Autonomous</span>
+      </div>
+      <div class="header-actions">
+        <div class="dataset-badge">
+          <strong id="activeDatasetName">Loading dataset...</strong>
+        </div>
+        <button class="btn-upload" id="openUploadBtn">
+          + Upload Data
+        </button>
+      </div>
+    </header>
+
+    <!-- Compact Key Metrics Strip -->
+    <section class="metrics-strip">
+      <div class="metric-item">
+        <span class="metric-lbl">Gross Revenue</span>
+        <span class="metric-val" id="kpiRevenue">₹0.00</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-lbl">Total Orders</span>
+        <span class="metric-val" id="kpiOrders">0</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-lbl">Avg Order (AOV)</span>
+        <span class="metric-val" id="kpiAOV">₹0.00</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-lbl">Cancellation</span>
+        <span class="metric-val" id="kpiCancellation" style="color: var(--danger);">0.0%</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-lbl">Top Category</span>
+        <span class="metric-val" id="kpiCategory" style="font-size: 0.95rem;">-</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-lbl">Top Market</span>
+        <span class="metric-val" id="kpiCity" style="font-size: 0.95rem;">-</span>
+      </div>
+    </section>
+
+    <!-- Main Workspace Layout -->
+    <div class="workspace-layout">
+      <!-- Main Chat Conversation Feed -->
+      <main class="chat-container" id="chatMessages">
+        <div class="message analyst">
+          <div class="message-bubble">
+            <h3>Hello</h3>
+            <p>
+            Ask me any question 
+            </p>
+          </div>
+        </div>
+      </main>
+
+      <!-- Right Panel: Top Right Suggestions & Bottom Right Chat Box -->
+      <aside class="right-panel">
+        <!-- Suggestions at Right Top Corner -->
+        <div class="top-right-suggestions">
+          <div class="suggestions-title">Suggestions</div>
+          <div class="suggestions-list" id="suggestionsContainer">
+            <button type="button" class="suggestion-btn" data-query="What is total revenue?">What is total revenue?</button>
+            <button type="button" class="suggestion-btn" data-query="Which are the top 5 categories by revenue?">Top 5 categories by revenue</button>
+            <button type="button" class="suggestion-btn" data-query="What is our overall cancellation rate?">Overall cancellation rate</button>
+            <button type="button" class="suggestion-btn" data-query="Show monthly sales trend">Show monthly sales trend</button>
+            <button type="button" class="suggestion-btn" data-query="Which are the top cities by sales?">Top cities by sales</button>
+          </div>
+        </div>
+
+        <!-- Chat Box at Right Bottom Corner -->
+        <div class="bottom-right-chatbox">
+          <form class="input-form" id="chatForm">
+            <input
+              type="text"
+              id="queryInput"
+              class="chat-input"
+              placeholder="Type"
+              autocomplete="off"
+            />
+            <button type="submit" class="btn-send" id="sendBtn">
+              Ask
+            </button>
+          </form>
+        </div>
+      </aside>
+    </div>
+
+  </div>
+
+  <!-- Minimal Upload Modal -->
+  <div class="modal-overlay" id="uploadModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Upload Dataset</h3>
+        <button class="close-btn" id="closeModalBtn">&times;</button>
+      </div>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">
+        Upload a new <strong>CSV</strong> (sales logs), <strong>JSON</strong>, or <strong>Images</strong> (.png, .jpg).
+      </p>
+
+      <div class="dropzone" id="fileDropzone">
+        
+        <div class="dropzone-text">Click to choose or Drag & Drop file</div>
+        <div class="dropzone-subtext">CSV, JSON, PNG, JPG supported</div>
+      </div>
+      <input type="file" id="fileInput" style="display: none;" accept=".csv,.json,.png,.jpg,.jpeg" />
+
+      <div class="upload-status" id="uploadStatus"></div>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
